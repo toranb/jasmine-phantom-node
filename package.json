@@ -11,12 +11,12 @@
     "jasmine-phantom-node": "./bin/jasmine-phantom-node"
   },
   "engines": {
-    "node": ">=v0.4.9"
+    "node": ">=v0.8.1"
   },
   "dependencies": {
     "phantom": "",
     "express":""
   },
   "devDependencies": {},
-  "optionalDependencies": {},
+  "optionalDependencies": {}
 }
