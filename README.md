@@ -13,7 +13,19 @@ I wrote this to execute jasmine specs without a browser using phantom-js + node
 
 ##How do I get started then?
 
-First you need to create a file named "phantom-runner.html" in the root of your project
+First you need to install PhantomJS on your machine
+
+http://phantomjs.org/
+
+If you are using OSX you can use brew
+
+    brew install phantomjs
+
+If you are on Ubuntu you can use apt-get
+
+    apt-get install phantomjs
+
+Next you need to create a file named "phantom-runner.html" in the root of your project
 
 Inside this file you will add anything your javascript tests require globally (ie- jQuery)
 
