@@ -2,7 +2,7 @@
   "author": "toran billups <toranb@gmail.com>",
   "name": "jasmine-phantom-node",
   "description": "javascript test runner that uses phantom-node to execute jasmine specs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "url": ""
   },
