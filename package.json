@@ -14,8 +14,9 @@
     "node": ">=v0.8.1"
   },
   "dependencies": {
-    "phantom": "",
-    "express":""
+    "express":"",
+    "colors":"",
+    "phantom": ""
   },
   "devDependencies": {},
   "optionalDependencies": {}
