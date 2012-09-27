@@ -2,10 +2,12 @@
   "author": "toran billups <toranb@gmail.com>",
   "name": "jasmine-phantom-node",
   "description": "javascript test runner that uses phantom-node to execute jasmine specs",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "repository": {
+    "type": "git",
     "url": "https://github.com/toranb/jasmine-phantom-node"
   },
+  "keywords": ["testing", "bdd"],
   "main": "./lib/main",
   "bin": {
     "jasmine-phantom-node": "./bin/jasmine-phantom-node"

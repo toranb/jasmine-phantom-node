@@ -50,7 +50,12 @@ describe("parseCommandLineArgs Tests", function() {
   it("returns cli param object when available params have specs to run", function() {
     var sut = new Cli({args:['--noColor', '--junitreport', 'foo/spec', 'bar/bazz']});
     var result = sut.parseCommandLineArgs();
-    expect(result).toEqual({showColor:false, showReport:true, runSpecs:['foo/spec', 'bar/bazz']});
+    expect(result).toEqual({
+      showColor:false,
+      showReport:true,
+      debugOn:false,
+      runSpecs:['foo/spec', 'bar/bazz']
+    });
   });
 
 });
@@ -91,6 +96,18 @@ describe("getAvailableParams Tests", function() {
     var sut = new Cli({args:['--junitreport', '--noColor', 'foo/spec']});
     var params = sut.getAvailableParams();
     expect(params.showColor).toBe(false);
+  });
+
+  it("debugOn is false without a specific command line argument available", function() {
+    var sut = new Cli({args:['--junitreport', '--noColor', 'foo/spec']});
+    var params = sut.getAvailableParams();
+    expect(params.debugOn).toBe(false);
+  });
+
+  it("debugOn is set to true when the command line argument is found", function() {
+    var sut = new Cli({args:['--junitreport', '--noColor', '--debug', 'foo/spec']});
+    var params = sut.getAvailableParams();
+    expect(params.debugOn).toBe(true);
   });
 
   it("runSpecs returns spec directory even when noColor command line argument available", function() {

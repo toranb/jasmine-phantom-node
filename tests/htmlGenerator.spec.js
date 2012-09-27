@@ -42,7 +42,7 @@ describe("getClosingHtml Tests", function() {
 
   it("returns the closing html", function() {
     var sut = new HtmlGenerator({'directories':null});
-    expectedClosingHtml = '</body></html>';
+    expectedClosingHtml = '</html>';
     html = sut.getClosingHtml();
     expect(html).toBe(expectedClosingHtml);
   });

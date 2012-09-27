@@ -42,6 +42,7 @@ Here is a very simple example of what this html file might look like
     <script src="/static/script/vendor/jquery-1.7.2.js"></script>
     </head>
     <body>
+    </body>
 
 The location of static/* should be the root asset directory of your webapp
 
