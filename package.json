@@ -2,7 +2,7 @@
   "author": "toran billups <toranb@gmail.com>",
   "name": "jasmine-phantom-node",
   "description": "javascript test runner that uses phantom-node to execute jasmine specs",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/toranb/jasmine-phantom-node"
@@ -19,7 +19,8 @@
   "dependencies": {
     "express":"",
     "colors":"",
-    "phantom": ""
+    "phantom": "",
+    "coffee-script": ""
   },
   "devDependencies": {},
   "optionalDependencies": {}

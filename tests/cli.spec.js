@@ -54,13 +54,26 @@ describe("parseCommandLineArgs Tests", function() {
       showColor:false,
       showReport:true,
       debugOn:false,
-      runSpecs:['foo/spec', 'bar/bazz']
+      runSpecs:['foo/spec', 'bar/bazz'],
+      compileCoffee:false
     });
   });
 
 });
 
 describe("getAvailableParams Tests", function() {
+
+  it("coffee is false without the command line argument present", function() {
+    var sut = new Cli({args:['foo/spec']});
+    var params = sut.getAvailableParams();
+    expect(params.compileCoffee).toBe(false);
+  });
+
+  it("coffee is true when the command line argument present", function() {
+    var sut = new Cli({args:['--coffee', 'foo/spec']});
+    var params = sut.getAvailableParams();
+    expect(params.compileCoffee).toBe(true);
+  });
 
   it("showColor is true without the command line argument present", function() {
     var sut = new Cli({args:['foo/spec']});

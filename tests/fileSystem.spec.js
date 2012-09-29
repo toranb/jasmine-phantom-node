@@ -1,4 +1,5 @@
 require('../lib/fileSystem');
+require('../lib/recurseDirectory');
 
 describe("getScriptsForEachJasmineSpec Tests", function() {
 
@@ -35,27 +36,38 @@ describe("getScriptsForEachJasmineSpec Tests", function() {
 
 });
 
-describe("traverseFileSystemAppendingScripts Tests", function() {
+describe("traverseFileSystemWithCallbacks Tests", function() {
 
-  var sut, scripts;
+  var sut, scripts, recurse, success, retry, compare;
 
   beforeEach(function(){
     scripts = [];
     sut = new FileSystem({'directories':null});
+    recurse = new RecurseDirectory(sut);
+    sut.recurse = recurse;
+    success = sut.appendJavascript;
+    retry = sut.traverseFileSystem;
+    compare = sut.isJsSpecFile;
   });
 
   it("returns spec.js file in target directory", function() {
-    sut.traverseFileSystemAppendingScripts(scripts, 'file-system/has-spec-example');
+    var directory = 'file-system/has-spec-example';
+    var params = {extra:scripts, directory:directory, success:success, retry:retry, compare:compare};
+    recurse.traverseFileSystemWithCallbacks(params);
     expect(scripts).toEqual(['<script src="/has-spec-example/foo.spec.js"></script>']);
   });
 
   it("returns empty list when no spec.js file found in target directory", function() {
-    sut.traverseFileSystemAppendingScripts(scripts, 'file-system/no-spec-example');
+    var directory = 'file-system/no-spec-example';
+    var params = {extra:scripts, directory:directory, success:success, retry:retry, compare:compare};
+    recurse.traverseFileSystemWithCallbacks(params);
     expect(scripts).toEqual([]);
   });
 
   it("returns each spec.js file found in both the target directory and each sub directory", function() {
-    sut.traverseFileSystemAppendingScripts(scripts, 'file-system/sub-dir-example');
+    var directory = 'file-system/sub-dir-example';
+    var params = {extra:scripts, directory:directory, success:success, retry:retry, compare:compare};
+    recurse.traverseFileSystemWithCallbacks(params);
     expect(scripts).toEqual(['<script src="/sub-dir-example/appz.spec.js"></script>',
                             '<script src="/sub-dir-example/controllers/controllerz.spec.js"></script>',
                             '<script src="/sub-dir-example/models/modelz.spec.js"></script>',
@@ -68,21 +80,27 @@ describe("traverseFileSystemAppendingScripts Tests", function() {
 
 describe("traverseFileSystem Tests", function() {
 
-  var sut, scripts;
+  var sut, script, recurse, success, retry, compare;
 
   beforeEach(function(){
     scripts = [];
     sut = new FileSystem({'directories':null});
+    recurse = new RecurseDirectory(sut);
+    sut.recurse = recurse;
+    success = sut.appendJavascript;
+    retry = sut.traverseFileSystem;
+    compare = sut.isJsSpecFile;
   });
 
-  it("invokes traverseFileSystemAppendingScripts with scripts and directory", function() {
-    var appendSpy = spyOn(sut, 'traverseFileSystemAppendingScripts');
+  it("invokes traverseFileSystemWithCallbacks with scripts and directory", function() {
+    var callbackSpy = spyOn(recurse, 'traverseFileSystemWithCallbacks');
+    var params = {extra:scripts, directory:'/foo', success:success, retry:retry, compare:compare};
     sut.traverseFileSystem(scripts, '/foo');
-    expect(appendSpy).toHaveBeenCalledWith(scripts, '/foo');
+    expect(callbackSpy).toHaveBeenCalledWith(params);
   });
 
   it("returns scripts after appending from the filesystem", function() {
-    var appendSpy = spyOn(sut, 'traverseFileSystemAppendingScripts');
+    var callbackSpy = spyOn(recurse, 'traverseFileSystemWithCallbacks');
     var result = sut.traverseFileSystem(scripts, '/foo');
     expect(result).toEqual(scripts);
   });
@@ -95,25 +113,6 @@ describe("getPhantomRunnerHtmlPage Tests", function() {
     var sut = new FileSystem({'directories':null});
     html = sut.getPhantomRunnerHtmlPage();
     expect(html).toBe("testing123\n");
-  });
-
-});
-
-describe("isFile Tests", function() {
-
-  it("returns true when filename has dot in the name", function() {
-    var sut = new FileSystem({'directories':null});
-    expect(sut.isFile('foo.spec.js')).toBe(true);
-  });
-
-  it("returns true when filename starts with a dot", function() {
-    var sut = new FileSystem({'directories':null});
-    expect(sut.isFile('.DS_Store')).toBe(true);
-  });
-
-  it("returns false when filename has no dot in the name", function() {
-    var sut = new FileSystem({'directories':null});
-    expect(sut.isFile('models')).toBe(false);
   });
 
 });
