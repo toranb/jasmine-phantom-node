@@ -63,11 +63,7 @@ With the example above you would tell the test runner to find and exec each spec
 
     node jasmine-phantom-node webapp/static/script/tests
 
-Or if you have several spec directories for different parts of your webapp
-
-    node jasmine-phantom-node webapp/static/script/tests webapp/static/script/integration
-
-The test runner will load each test directory recursively so avoid the following
+The test runner will load each test directory recursively so avoid the following (results in duplicate specs being run)
 
     node jasmine-phantom-node webapp/static/script/tests/views webapp/static/script/tests/models
 
@@ -75,11 +71,16 @@ You will run the command above from the root of your project
 
 At this time it's required to install this npm module locally -not globally
 
+##What about these optional command line flags?
+
+    --coffee will tell the test runner to compile any .spec.coffee files found in the directory
+    --noColor simply removes the red/green color output (useful on your ci server)
+    --junitreport at a future date this will generate a junit xml file with your test results
+    --debug will tell the express web server to keep running so you can open the browser and debug your test code
+
 ##So what is missing from this test project today?
 
-1. Add the full stacktrace that jasmine-html shows when a spec fails
-2. Add support for the junit xml reporting built into jasmine already
-3. Maybe a feature to 'roll-back' / reset the dom after each test
-4. No high-level functional tests to show it in action end-to-end
-5. Real-world adoption to ensure the phantom-js runtime is browser-like
-6. A pull request is needed for the npm project I lean on (phantomjs-node) to fix an issue showing up when tests run (regarding express)
+1. Include the full jasmine stacktrace in the test results
+2. Include support for the junit xml reporting built into jasmine already
+3. A pull request is needed for the npm project "phantomjs-node" to remove a few express warnings that shows up
+4. Multi directory support (currently you can pass in more than 1 directory but it doesn't filter unique specs at this time)
