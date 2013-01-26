@@ -73,7 +73,7 @@ At this time it's required to install this npm module locally -not globally
 
 ##What about these optional command line flags?
 
-    --coffee will tell the test runner to compile any .spec.coffee files found in the directory
+    --coffee will tell the test runner to compile any .coffee files found in the directory
     --noColor simply removes the red/green color output (useful on your ci server)
     --junitreport at a future date this will generate a junit xml file with your test results
     --debug will tell the express web server to keep running so you can open the browser and debug your test code
