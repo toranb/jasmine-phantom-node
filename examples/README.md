@@ -18,4 +18,4 @@
     node node_modules/jasmine-phantom-node/bin/jasmine-phantom-node webapp/static/tests
 
 ###For the coffee example pass the optional --coffee flag along with the test directory
-    node node_modules/jasmine-phantom-node/bin/jasmine-phantom-node webapp/static/tests --coffee
+    node node_modules/jasmine-phantom-node/bin/jasmine-phantom-node webapp/static --coffee

@@ -68,6 +68,27 @@ describe("traverseFileSystemWithCallbacks Tests", function() {
     fs.unlinkSync('file-system/sub-dir-coffee/views/templates/finally/lastone.spec.js', 'utf8');
   });
 
+  it("even compiles non spec coffee files to production ready javascript", function() {
+    var directory = 'file-system/app';
+    var params = {extra:null, directory:directory, success:success, retry:retry, compare:compare};
+    recurse.traverseFileSystemWithCallbacks(params);
+
+    var code1 = fs.readFileSync('file-system/app/foo.js', 'utf8');
+    expect(code1).toContain('Foo.prototype.doStuff = function(input) {');
+    expect(code1).toContain('})();');
+    fs.unlinkSync('file-system/app/foo.js', 'utf8');
+  });
+
+  it("coffee files produce bare javascript", function() {
+    var directory = 'file-system/app';
+    var params = {extra:null, directory:directory, success:success, retry:retry, compare:compare};
+    recurse.traverseFileSystemWithCallbacks(params);
+
+    var code1 = fs.readFileSync('file-system/app/foo.js', 'utf8');
+    expect(code1).not.toContain('}).call(this);');
+    fs.unlinkSync('file-system/app/foo.js', 'utf8');
+  });
+
 });
 
 describe("traverseFileSystem Tests", function() {
