@@ -82,5 +82,5 @@ At this time it's required to install this npm module locally -not globally
 
 1. Include the full jasmine stacktrace in the test results
 2. Include support for the junit xml reporting built into jasmine already
-3. A pull request is needed for the npm project "phantomjs-node" to remove a few express warnings that shows up
+3. Support for code coverage
 4. Multi directory support (currently you can pass in more than 1 directory but it doesn't filter unique specs at this time)
